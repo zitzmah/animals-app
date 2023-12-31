@@ -3,6 +3,7 @@ require("dotenv").config()
 require("./config/db")
 const express = require("express")
 const morgan = require("morgan")
+const methodOverride = require("method-override")
 
 const app = express()
 const { PORT = 3013 } = process.env
@@ -12,6 +13,7 @@ const Animal = require("./models/Animal")
 //MIDDLEWARE
 app.use(morgan("dev"))
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride("_method"))
 
 //ROUTES & ROUTER
 //INDEX - GET
@@ -25,6 +27,17 @@ app.get("/animals", async (req, res) => {
 //NEW - GET
 app.get("/animals/new", (req, res) => {
     res.render("new.ejs")
+})
+
+//DELETE
+app.delete("/animals/:id", async (req, res) => {
+    try {
+        let deletedAnimal = await Animal.findByIdAndDelete(req.params.id)
+        console.log(deletedBook)
+        res.redirect("/animals")     
+    } catch (error) {
+        res.status(500).send("something went wrong when deleting")
+    }
 })
 
 //CREATE - POST
