@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+<%- include("./partials/nav.ejs") %>
+
+    <body>
+        <h1>New Animal Form</h1>
+        <form action="/animals" method="post"><br>
+            Species: <input type="text" name="species"><br>
+            Extinct: <input type="checkbox" name="extinct"><br>
+            Location: <input type="text" name="location"><br>
+            Life Expectancy: <input type="number" name="lifeExpecancy">
+            <input type="submit" value="Add an animal to the list">
+        </form>
+    </body>
+
+</html>
