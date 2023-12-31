@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs")%>
+
+    <body>
+        <% console.log(animal) %>
+            <%- include("./partials/nav.ejs") %>
+                <h1>
+                    <%= animal.species %>
+                </h1>
+                <h2>
+                    <%=animal.location %>
+                </h2>
+                <p>
+                    <%= animal.extinct ? "This animal is extinct" : "This animal is not extinct" %>
+                </p>
+                <h3>Life Expectancy: <%= animal.lifeExpectancy %>
+                </h3>
+    </body>
+
+</html>

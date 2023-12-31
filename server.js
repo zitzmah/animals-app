@@ -15,11 +15,11 @@ app.use(express.urlencoded({ extended: true }))
 
 //ROUTES & ROUTER
 //INDEX - GET
-app.get("/animals", async (req, res)=>{
-let animals = await Animal.find({})
-res.render("index.ejs", {
-    animals: animals.reverse()
-})
+app.get("/animals", async (req, res) => {
+    let animals = await Animal.find({})
+    res.render("index.ejs", {
+        animals: animals.reverse()
+    })
 })
 
 //NEW - GET
@@ -43,6 +43,12 @@ app.post("/animals", async (req, res) => {
 })
 
 //SHOW - GET
+app.get("/animals/:id", async (req, res) => {
+    let foundAnimal = await Animal.findById(req.params.id)
+    res.render("show.ejs", {
+        animal: foundAnimal
+    })
+})
 
 //SERVER LISTENER
 app.listen(PORT, () => console.log(`listening to the sounds of ${PORT}`))
