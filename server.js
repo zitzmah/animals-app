@@ -34,9 +34,30 @@ app.delete("/animals/:id", async (req, res) => {
     try {
         let deletedAnimal = await Animal.findByIdAndDelete(req.params.id)
         console.log(deletedBook)
-        res.redirect("/animals")     
+        res.redirect("/animals")
     } catch (error) {
         res.status(500).send("something went wrong when deleting")
+    }
+})
+
+//UPDATE
+app.put("/animals/:id", async (req, res) => {
+    try {
+        if (req.body.extinct === "on") {
+            req.body.extinct = true
+        } else {
+            req.body.extinct = false
+        }
+        let updatedAnimal = await Animal.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {
+                new: true
+            }
+        )
+        res.redirect(`/animals/${updatedAnimal._id}`)
+    } catch (error) {
+        res.send("something whent wrong in this route")
     }
 })
 
@@ -52,6 +73,18 @@ app.post("/animals", async (req, res) => {
         res.redirect("/animals")
     } catch (err) {
         res.send(err)
+    }
+})
+
+//EDIT
+app.get("/animals/edit/:id", async (req, res) => {
+    try {
+        let foundAnimal = await Animal.findByIdAndUpdate(req.params.id)
+        res.render("edit.ejs", {
+            animal: foundAnimal
+        })
+    } catch (error) {
+        res.send("hello from the error")
     }
 })
 
