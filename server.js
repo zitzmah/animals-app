@@ -33,7 +33,6 @@ app.get("/animals/new", (req, res) => {
 app.delete("/animals/:id", async (req, res) => {
     try {
         let deletedAnimal = await Animal.findByIdAndDelete(req.params.id)
-        console.log(deletedBook)
         res.redirect("/animals")
     } catch (error) {
         res.status(500).send("something went wrong when deleting")
